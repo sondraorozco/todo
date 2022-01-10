@@ -13,8 +13,27 @@ function App() {
       isCompleted: false,
     }
   ]);
+
+  const addTodo = text => {
+    const newTodos = [...todos, {text: text, isCompleted: false}];
+    setTodos(newTodos);
+  }
+
+  const removeTodo = e => {
+    const index = Number(e.target.id);
+    let temp = [...todos];
+    temp.splice(index,1);
+    setTodos(temp);
+  }
+
   return (<>
-    {todos.map((todo, i) => <div key={i}>{todo.text}</div>)}
+    <div className="app">
+      <div className="todo-list">
+        {todos.map((todo, i) => 
+          <div className="todo" key={i} id={i} onClick={removeTodo}>{todo.text}</div>)}
+        <TodoForm addTodo={addTodo} />
+      </div>
+    </div>
   </>);
 }
 
